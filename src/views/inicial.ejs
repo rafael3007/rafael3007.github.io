@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#41414C" />
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
+    <title>JobsCalc</title>
+
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/partials/page-header.css" />
+    <link rel="stylesheet" href="/styles/partials/cards.css" />
+    <link rel="stylesheet" href="/styles/partials/buttons.css" />
+    <link rel="stylesheet" href="/styles/partials/modal.css" />
+    <link rel="stylesheet" href="/styles/partials/animations.css" />
+    <link rel="stylesheet" href="/styles/pages/inicial.css" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <script src="scripts/index.js" defer type="module"></script>
+</head>
+
+<body id="page-index">
+    <header class="page-header">
+        <div class="container">
+            <section id="top" class="animate-up">
+                <h2 class="sr-only">Homepage</h2>
+                <img id="logo" src="/images/logo.svg" alt="Logo" />       
+                <a href="/profile" id="avatar-profile">
+                    <p><%= profile.name%> <span>Ver perfil</span></p>
+                    <img src="<%= profile.avatar %>" />
+                </a>
+            </section>
+
+            <div class="separator"></div>
+
+            <section id="summary" class="animate-up delay-1">
+                <h2 class="sr-only">Sumário</h2>
+
+                
+                <div class="busca">
+                   <form id="form-busca" method="post" action="/inicial">
+                        <input  
+                        id="busca" 
+                        class="busca"
+                        name="busca" 
+                        type="text" 
+                        placeholder="Uniorg"
+                        />
+                        <button 
+                        class="button orange" 
+                        type="submit" 
+                        form="form-busca"
+                        >Buscar
+                        
+                        </button>    
+                   </form>
+                </div>
+                <a class="button orange" href="/row">
+                    
+              <img src="/images/plus-24.svg" alt="Nova Linha" /> 
+                 Adicionar Uma Nova Linha
+                </a>
+            </section>
+        </div>
+    </header>
+
+    <div class="container">
+        <main class="animate-up delay-2">
+            <h1 class="sr-only">Trabalhos</h1>
+
+            <div class="cards">
+                
+                    <% for(var i=0; i < rows.length; i++) {var row = rows[i]  %>
+                        <div class="row">
+                            <div class="card">
+                                <div class="id column">
+                                    <%= row.ID %>
+                                </div>
+                            
+                                <div class="uniorg column">
+                                    <p><%= row.UNIORG %></p>                            
+                                </div>
+                                <div class="name column">
+                                    <p><%= row.ENDERECO %></p>                            
+                                </div>
+                                <div class="cidade column"> 
+                                    <p><%= row.CIDADE %></p>                            
+                                </div>
+                                <div class="tipo column">  
+                                    <p><%= row.TIPO %></p>                            
+                                </div>
+                                <div class="ambiente column">  
+                                    <p><%= row.AMBIENTE %></p>                            
+                                </div>
+                                <div class="andar column">   
+                                    <p><%= row.ANDAR %></p>  
+                                </div>
+                                <div class="capacidade column">  
+                                    <p><%= row.CAPACIDADE %></p>
+                                </div>
+                                <div class="quantidade column"> 
+                                    <p><%= row.QUANTIDADE %></p>
+                                </div>
+                                <div class="testeH column">
+                                    <p>
+                                        <%= row.TESTE_HIDROSTATICO.split('-').reverse().join('/') %>
+                                    </p>
+                                </div>
+                                <div class="vencimento column">
+                                    <p>
+                                        <%= row.VENCIMENTO_RECARGA.split('-').reverse().join('/') %>
+                                    </p>
+                                </div>
+                                <div class="memorial column">   
+                                    <p><%= row.MEMORIAL %></p>
+                                </div>
+                            </div>
+                            <div class="actions column flex">
+                                <p class="sr-only">Ações</p>
+                                <a href="/row/<%= row.ID %>" 
+                                class="button white edit" 
+                                title="Editar Linha">
+                                    <img src="/images/edit-24.svg" alt="Editar" />
+                                </a>
+                                <a href="/row/delete/<%= row.ID %>" 
+                                    class="button white delete" 
+                                    title="Excluir Linha">
+                                        <img src="/images/trash-24.svg" alt="Excluir" />
+                                </a>
+                            </div>
+                        </div>
+                        <% } %>
+    
+                            <!-- end card -->
+                
+                
+            </div>
+            <!-- end cards -->
+        </main>
+    </div>
+    <!-- end container -->
+    <!-- end modal-wrapper -->
+</body>
+
+</html>

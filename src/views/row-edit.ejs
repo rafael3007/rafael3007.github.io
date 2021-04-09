@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#41414C" />
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
+    <title>JobsCalc</title>
+
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/partials/page-header.css" />
+    <link rel="stylesheet" href="/styles/partials/cards.css" />
+    <link rel="stylesheet" href="/styles/partials/buttons.css" />
+    <link rel="stylesheet" href="/styles/partials/forms.css" />
+    <link rel="stylesheet" href="/styles/partials/modal.css" />
+    <link rel="stylesheet" href="/styles/partials/animations.css" />
+    <link rel="stylesheet" href="/styles/pages/job.css" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <script type="module" src="/scripts/job-edit.js"></script>
+
+</head>
+
+<body id="page-job-edit">
+
+    <%- include('parts/page-header', { title: 'Editar Linha'}) %>
+
+        <div class="container flex animate-up delay-2">
+            <form id="form-row" method="post" action="/row/<%=row.ID %>">
+                <fieldset>
+                    <legend>Dados da Linha</legend>
+                    <div class="separator light"></div>
+
+                    <div class="input-wrapper">
+                        <label for="UNIORG">Uniorg</label>
+                        <input type="text" id="UNIORG" name="UNIORG" value="<%=row.UNIORG %>"/>
+                    </div>
+                    <div class="input-wrapper">
+                        <label for="NOME_AGENCIA">Nome Da Agência</label>
+                        <input type="text" id="NOME_AGENCIA" name="NOME_AGENCIA" value="<%= row.NOME_AGENCIA %>"/>
+                    </div>
+                    <div class="input-wrapper">
+                        <label for="ENDERECO">Endereço</label>
+                        <input type="text" id="ENDERECO" name="ENDERECO" value="<%= row.ENDERECO %>" />
+                    </div>
+                    <div class="input-wrapper">
+                        <label for="CIDADE">Cidade</label>
+                        <input type="text" id="CIDADE" name="CIDADE" value="<%= row.CIDADE %>" />
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-wrapper">
+                            <label for="TIPO">Tipo</label>
+                            <input type="text"  id="TIPO" name="TIPO"  value="<%= row.TIPO %>"/>
+                        </div>
+
+                        <div class="input-wrapper">
+                            <label for="AMBIENTE">Ambiente</label>
+                            <input type="text" id="AMBIENTE" name="AMBIENTE" value="<%= row.AMBIENTE %>" />
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label for="ANDAR">Andar</label>
+                        <input type="text" id="ANDAR" name="ANDAR" value="<%= row.ANDAR %>" />
+                    </div>
+                    <div class="input-group">
+                        <div class="input-wrapper">
+                            <label for="CAPACIDADE">Capacidade</label>
+                            <input type="text"  id="CAPACIDADE" name="CAPACIDADE" value="<%= row.CAPACIDADE %>"/>
+                        </div>
+
+                        <div class="input-wrapper">
+                            <label for="QUANTIDADE">Quantidade</label>
+                            <input type="text" id="QUANTIDADE" name="QUANTIDADE" value="<%= row.QUANTIDADE %>" />
+                        </div>
+                    </div>
+                    
+
+                    <div class="input-wrapper">
+                        <label for="MANTENEDORA">Mantenedora</label>
+                        <input type="text" id="MANTENEDORA" name="MANTENEDORA" value="<%= row.MANTENEDORA %>" />
+                    </div>
+
+                    <div class="input-wrapper">
+                        <label for="VENCIMENTO_RECARGA">Vencimento / Recarga</label>
+                        <input type="date" id="VENCIMENTO_RECARGA" name="VENCIMENTO_RECARGA"  value="<%= row.VENCIMENTO_RECARGA %>" />
+                    </div>
+
+                    <div class="input-wrapper">
+                        <label for="TESTE_HIDROSTATICO">Teste Hidrostático</label>
+                        <input type="date" id="TESTE_HIDROSTATICO" name="TESTE_HIDROSTATICO" value="<%= row.TESTE_HIDROSTATICO %>" />
+                    </div>
+
+                    <div class="input-wrapper">
+                        <label for="MEMORIAL">Memorial</label>
+                        <input type="text" id="MEMORIAL" name="MEMORIAL"  value="<%= row.MEMORIAL %>" />
+                    </div>
+                        
+                </fieldset>
+
+            </form>
+            </main>
+            <aside class="card">
+                <img src="/images/money-color.svg" alt="Imagem">
+                <p>
+                    ALGUM TEXTO
+                </p>
+                <div class="button-group">
+                    <button class="button green" form="form-row" type="submit" title="Salvar Dados">Salvar</button>
+                    <a href="/inicial" class="button gray open-modal">
+                        <img src="/images/trash-24.svg" alt="Cancelar cadastro" title="Cancelar cadastro">
+                    </a>
+                </div>
+            </aside>
+
+        </div>
+        <!-- end container -->
+<!-- "modalizar isso aki, tem em muitas paginas" -->
+        <div class="modal-wrapper">
+            <div class="modal">
+                <img src="/images/trash-48.svg" alt="Excluir Linha" title="Excluir Linha" />
+                <h3>Excluir Linha</h3>
+                <p>Quer mesmo excluir essa Linha? <br/> Ele será apagado para sempre.</p>
+                        <footer>
+                            <a class="button gray" href="/inicial">Cancelar</a>
+                            <button class="button red" type="submit" form="delete-row">Excluir Linha</button>
+                        </footer>
+            </div>
+            <form 
+                method="post" 
+                action="/row/delete/<%= row.ID %>" 
+                id="delete-row">
+            </form>
+        </div>
+        <!-- end modal-wrapper -->
+</body>
+
+</html>
